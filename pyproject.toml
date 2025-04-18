@@ -1,0 +1,63 @@
+[project]
+name = "SmartTasks"
+version = "0.1.0"
+description = "Pet-project as a task management system designed to automate task-related workflows and notifications."
+authors = [
+    { name = "Kirill", email = "freydin.kirill@gmail.com" }
+]
+readme = "README.md"
+requires-python = ">=3.12,<4.0"
+package-mode = false
+
+[tool.poetry.dependencies]
+asyncpg = "^0.30.0"
+fastapi = "^0.115.12"
+psycopg2 = "^2.9.10"
+redis = "^5.2.1"
+sqlalchemy = "^2.0.40"
+uvicorn = "^0.34.1"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^4.2.0"
+pytest = "^7.4.0"
+ruff = "^0.11.6"
+
+[tool.ruff]
+# максимально допустимая длина строки
+line-length = 140
+select = ["ALL"]
+ignore = [
+    "ANN002", "ANN003", "ANN101", "ANN102",
+    "E203", "E501",
+]
+exclude = [
+    "tests/",
+    ".git",
+    "__pycache__",
+    "venv",
+    ".venv",
+    ".idea",
+]
+format = ["*.py", "*.pyi"]
+
+[tool.ruff.lint.isort]
+# Forces all from imports to appear on their own line
+force-single-line = false
+# Group imports by top‑level package
+group-by-package = true
+# Include a trailing comma on multi‑line imports with parentheses
+include-trailing-comma = true
+# Use parentheses for line continuation instead of backslashes
+use-parentheses = true
+# Number of blank lines after import section
+lines-after-imports = 2
+# Multi‑line output style (3 соответствует vertical hanging indent)
+multi-line-output = 3
+# Lines between `import X` and `from Y import Z`
+lines-between-types = 1
+# Enforce strictly alphabetical order
+lexicographical = true
+
+[build-system]
+requires = ["poetry-core>=2.0.0"]
+build-backend = "poetry.core.masonry.api"
