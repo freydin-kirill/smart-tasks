@@ -9,40 +9,52 @@ readme = "README.md"
 requires-python = ">=3.12,<4.0"
 package-mode = false
 
-[tool.poetry.dependencies]
-asyncpg = "^0.30.0"
-fastapi = "^0.115.12"
-psycopg2 = "^2.9.10"
-redis = "^5.2.1"
-sqlalchemy = "^2.0.40"
-uvicorn = "^0.34.1"
-dotenv = "^0.9.9"
 
-[tool.poetry.group.dev.dependencies]
-pre-commit = "^4.2.0"
-poetry = "^2.1.2"
-ruff = "^0.11.6"
+[tool.black]
+line-length = 88
+exclude = "((.eggs | .git | .pytest_cache | build | dist))"
 
-[tool.poetry.group.test.dependencies]
-pytest = "^7.4.0"
+
+[tool.mypy]
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+exclude = ["alembic", "__pycache__"]
+
 
 [tool.ruff]
-# максимально допустимая длина строки
-line-length = 140
-select = ["ALL"]
+# Same as Black.
+line-length = 88
+# In addition to the standard set of exclusions
+extend-exclude = []
+fix = true
+
+[tool.ruff.lint]
+extend-select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "C",  # flake8-comprehensions
+    "B",  # flake8-bugbear
+]
 ignore = [
     "ANN002", "ANN003", "ANN101", "ANN102",
-    "E203", "E501",
+    "E203",
+    "E501",
+    "B904",
+    "B006",
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
 ]
-exclude = [
-    "tests/",
-    ".git",
-    "__pycache__",
-    "venv",
-    ".venv",
-    ".idea",
-]
-format = ["*.py", "*.pyi"]
+
+
+[tool.ruff.format]
+# Like Black, use double quotes for strings.
+quote-style = "double"
+# Like Black, indent with spaces, rather than tabs.
+indent-style = "space"
+
 
 [tool.ruff.lint.isort]
 # Forces all from imports to appear on their own line
@@ -61,6 +73,26 @@ multi-line-output = 3
 lines-between-types = 1
 # Enforce strictly alphabetical order
 lexicographical = true
+
+
+[tool.poetry.dependencies]
+asyncpg = "^0.30.0"
+fastapi = "^0.115.12"
+psycopg2 = "^2.9.10"
+redis = "^5.2.1"
+sqlalchemy = "^2.0.40"
+uvicorn = "^0.34.1"
+dotenv = "^0.9.9"
+
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^4.2.0"
+poetry = "^2.1.2"
+ruff = "^0.11.6"
+mypy = "^1.15.0"
+pytest = "^7.4.0"
+black = "^25.1.0"
+
 
 [build-system]
 requires = ["poetry-core>=2.0.0"]

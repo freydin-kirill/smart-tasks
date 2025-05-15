@@ -11,7 +11,7 @@
 
 ## MVP Feature List
 
-- [ ] User registration and login functionality
+- [ ] UserBase registration and login functionality
 - [ ] Task management: creating, updating, viewing, and deleting tasks
 - [ ] Task assignment and deadline management
 - [ ] Automation rule setup (e.g., "send notification if a task deadline has passed")
@@ -26,7 +26,7 @@
 
 | Service                  | Description                                                 | Communication Method  |
 |--------------------------|-------------------------------------------------------------|-----------------------|
-| **User Service**         | Manages user accounts, authentication, and authorization    | HTTP (REST)           |
+| **UserBase Service**         | Manages user accounts, authentication, and authorization    | HTTP (REST)           |
 | **Task Service**         | Handles task creation, management, and assignment           | HTTP (REST), RabbitMQ |
 | **Automation Service**   | Executes automation rules and workflows                     | RabbitMQ              |
 | **Notification Service** | Sends out notifications (email/webhook)                     | RabbitMQ              |
@@ -43,7 +43,7 @@
                          HTTP/REST      |     HTTP/REST (Internal)
                                         V
            +-------------------+  +---------------+  +-----------------------+
-           |   User Service    |  |  Task Service |  | Automation Service    |
+           |   UserBase Service    |  |  Task Service |  | Automation Service    |
            | (Registration,    |  | (CRUD Tasks)  |  | (Rule Processing:     |
            |  Login, Profiles) |  |               |  |  Overdue Check)       |
            +-------------------+  +-------+-------+  +----------+------------+
@@ -75,10 +75,10 @@
 
 ---
 
-## User Stories & Scenarios
+## UserBase Stories & Scenarios
 
 ### Scenario 1: Task Creation and Automation Trigger
-- User logs in and creates a new task with a specified deadline.
+- UserBase logs in and creates a new task with a specified deadline.
 - Task Service stores task details and publishes an event to RabbitMQ.
 - Automation Service subscribes to the event and schedules automation checks.
 
